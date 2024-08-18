@@ -3,7 +3,7 @@ import Image from "next/image";
 import nextConfig from "../../../next.config.mjs";
 const BASE_PATH = nextConfig.basePath || ".";
 
-export function GenshinWeapons(weapon: GenshinWeapon){
+export default function GenshinWeaponsLogo(weapon: GenshinWeapon){
 
     switch (weapon){
         case GenshinWeapon.Swords:

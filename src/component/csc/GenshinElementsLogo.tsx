@@ -3,7 +3,7 @@ import Image from "next/image";
 import nextConfig from "../../../next.config.mjs";
 const BASE_PATH = nextConfig.basePath || ".";
 
-export function GenshinElements(element: GenshinElement){
+export default function GenshinElementsLogo(element: GenshinElement){
 
     switch (element){
         case GenshinElement.Anemo:
