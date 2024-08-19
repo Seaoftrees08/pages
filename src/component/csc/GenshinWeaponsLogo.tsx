@@ -3,19 +3,23 @@ import Image from "next/image";
 import nextConfig from "../../../next.config.mjs";
 const BASE_PATH = nextConfig.basePath || ".";
 
-export default function GenshinWeaponsLogo({weapon = getRandomGenshinWeapon()}){
+export default function GenshinWeaponsLogo({
+    weapon = getRandomGenshinWeapon(),
+    size = 128,
+    margin = 8
+}){
 
     switch (weapon){
         case GenshinWeapon.Swords:
-            return(<Image style={{margin:8}} src={`${BASE_PATH}/weapons/swords.png`} alt={"Genshin Sword Logo"} width={128} height={128} />)
+            return(<Image style={{margin:margin}} src={`${BASE_PATH}/weapons/swords.png`} alt={"Genshin Sword Logo"} width={size} height={size} />)
         case GenshinWeapon.Claymores:
-            return(<Image style={{margin:8}} src={`${BASE_PATH}/weapons/claymores.png`} alt={"Genshin Claymores Logo"} width={128} height={128} />)
+            return(<Image style={{margin:margin}} src={`${BASE_PATH}/weapons/claymores.png`} alt={"Genshin Claymores Logo"} width={size} height={size} />)
         case GenshinWeapon.Polearms:
-            return(<Image style={{margin:8}} src={`${BASE_PATH}/weapons/polearms.png`} alt={"Genshin Polearms Logo"} width={128} height={128} />)
+            return(<Image style={{margin:margin}} src={`${BASE_PATH}/weapons/polearms.png`} alt={"Genshin Polearms Logo"} width={size} height={size} />)
         case GenshinWeapon.Catalysts:
-            return(<Image style={{margin:8}} src={`${BASE_PATH}/weapons/catalysts.png`} alt={"Genshin Catalysts Logo"} width={128} height={128} />)
+            return(<Image style={{margin:margin}} src={`${BASE_PATH}/weapons/catalysts.png`} alt={"Genshin Catalysts Logo"} width={size} height={size} />)
         case GenshinWeapon.Bows:
-            return(<Image style={{margin:8}} src={`${BASE_PATH}/weapons/bows.png`} alt={"Genshin Bows Logo"} width={128} height={128} />)
+            return(<Image style={{margin:margin}} src={`${BASE_PATH}/weapons/bows.png`} alt={"Genshin Bows Logo"} width={size} height={size} />)
     }
 
 }

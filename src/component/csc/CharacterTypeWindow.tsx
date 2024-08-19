@@ -15,7 +15,7 @@ export default function CharacterTypeWindow({characterType: characterType = getR
             <div className="">
                 <GenshinElementsLogo element={element} />
             </div>
-            <div className="bg-white">
+            <div className="">
                 <GenshinWeaponsLogo weapon={weapon} />
             </div>
         </div>
@@ -26,7 +26,7 @@ export default function CharacterTypeWindow({characterType: characterType = getR
  * filterと被りのないCharacterTypeを返す
  * @param filter 重複してはいけないキャラクタータイプの配列
  */
-export function getRandomCharacter(filter: CharacterType[]): CharacterType {
+export function getRandomCharacter(filter: CharacterType[]): CharacterType{
     let randomCharacter: CharacterType;
 
     do {

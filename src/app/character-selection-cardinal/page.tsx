@@ -4,7 +4,7 @@ import {useState} from "react";
 import CharacterTypeWindow, {CharacterType, getRandomCharacter} from "@/component/csc/CharacterTypeWindow";
 import {GenshinElement} from "@/component/csc/GenshinElementsLogo";
 import {GenshinWeapon} from "@/component/csc/GenshinWeaponsLogo";
-import {Button, ChakraProvider} from '@chakra-ui/react'
+import {Button, ChakraProvider, filter} from '@chakra-ui/react'
 import SideSettings from "@/component/csc/SideSettings";
 
 //Ver5.0 時点で未実装のタイプ
@@ -42,6 +42,25 @@ export default function Home() {
         setAllowDuplicates(!allowDuplicates);
     }
 
+    const addFilter = (cType: CharacterType) => {
+        let isExist = false;
+        filterCharaType.forEach((fct) => {
+            if(fct.element === cType.element && fct.weapon === cType.weapon){
+                isExist = true;
+            }
+        })
+        if(!isExist && filterCharaType.length < 20){ //ランダムな選定方法を取っているため、filterをかけすぎるとフリーズする
+            const newCharactersFilter: CharacterType[] = [...filterCharaType, cType];
+            setFilterCharaType(newCharactersFilter);
+        }
+    }
+
+    const removeFilter = (cType: CharacterType) => {
+        setFilterCharaType(
+            filterCharaType.filter(c => !(c.element === cType.element && c.weapon === cType.weapon))
+        );
+    }
+
     return (
         <main className="flex flex-row-reverse bg-gray-700 h-screen w-screen items-center justify-end">
 
@@ -49,6 +68,9 @@ export default function Home() {
                 <SideSettings
                     toggleAllowDuplicates={toggleAllowDuplicates}
                     allowDuplicates={allowDuplicates}
+                    filterCharaType={filterCharaType}
+                    addFilter={addFilter}
+                    removeFilter={removeFilter}
                 />
 
                 <div className="py-8 px-4 w-3/4 min-h-fit ">

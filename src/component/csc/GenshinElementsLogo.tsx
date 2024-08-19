@@ -3,23 +3,27 @@ import Image from "next/image";
 import nextConfig from "../../../next.config.mjs";
 const BASE_PATH = nextConfig.basePath || ".";
 
-export default function GenshinElementsLogo({element = getRandomGenshinElement(), size = 128}){
+export default function GenshinElementsLogo({
+    element = getRandomGenshinElement(),
+    size = 128,
+    margin = 8
+}){
 
     switch (element){
         case GenshinElement.Anemo:
-            return(<Image style={{margin:8}} src={`${BASE_PATH}/elements/anemo.png`} alt={"Genshin Anemo Logo"} width={size} height={size} />)
+            return(<Image style={{margin:margin}} src={`${BASE_PATH}/elements/anemo.png`} alt={"Genshin Anemo Logo"} width={size} height={size} />)
         case GenshinElement.Geo:
-            return(<Image style={{margin:8}} src={`${BASE_PATH}/elements/geo.png`} alt={"Genshin Geo Logo"} width={size} height={size} />)
+            return(<Image style={{margin:margin}} src={`${BASE_PATH}/elements/geo.png`} alt={"Genshin Geo Logo"} width={size} height={size} />)
         case GenshinElement.Electro:
-            return(<Image style={{margin:8}} src={`${BASE_PATH}/elements/electro.png`} alt={"Genshin Electro Logo"} width={size} height={size} />)
+            return(<Image style={{margin:margin}} src={`${BASE_PATH}/elements/electro.png`} alt={"Genshin Electro Logo"} width={size} height={size} />)
         case GenshinElement.Dendro:
-            return(<Image style={{margin:8}} src={`${BASE_PATH}/elements/dendro.png`} alt={"Genshin Dendro Logo"} width={size} height={size} />)
+            return(<Image style={{margin:margin}} src={`${BASE_PATH}/elements/dendro.png`} alt={"Genshin Dendro Logo"} width={size} height={size} />)
         case GenshinElement.Hydro:
-            return(<Image style={{margin:8}} src={`${BASE_PATH}/elements/hydro.png`} alt={"Genshin Hydro Logo"} width={size} height={size} />)
+            return(<Image style={{margin:margin}} src={`${BASE_PATH}/elements/hydro.png`} alt={"Genshin Hydro Logo"} width={size} height={size} />)
         case GenshinElement.Pyro:
-            return(<Image style={{margin:8}} src={`${BASE_PATH}/elements/pyro.png`} alt={"Genshin Pyro Logo"} width={size} height={size} />)
+            return(<Image style={{margin:margin}} src={`${BASE_PATH}/elements/pyro.png`} alt={"Genshin Pyro Logo"} width={size} height={size} />)
         case GenshinElement.Cryo:
-            return(<Image style={{margin:8}} src={`${BASE_PATH}/elements/cryo.png`} alt={"Genshin Cryo Logo"} width={size} height={size} />)
+            return(<Image style={{margin:margin}} src={`${BASE_PATH}/elements/cryo.png`} alt={"Genshin Cryo Logo"} width={size} height={size} />)
     }
 
 }
