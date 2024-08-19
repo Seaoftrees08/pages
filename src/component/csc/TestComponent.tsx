@@ -1,6 +1,6 @@
-export default function TestComponent({num: Test}){
+export default function TestComponent({num = Test.testA}){
     return(
-        <p>てすとです！</p>
+        <p>てすとです！{num}</p>
     )
 }
 
