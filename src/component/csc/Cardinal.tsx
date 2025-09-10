@@ -8,11 +8,11 @@ import {Button, ChakraProvider} from '@chakra-ui/react'
 import SideSettings from "@/component/csc/SideSettings";
 import Head from 'next/head';
 
-const notExistCharacterType = {element: GenshinElement.Hydro, weapon: GenshinWeapon.Claymores}
+//const notExistCharacterType = {element: GenshinElement.Hydro, weapon: GenshinWeapon.Claymores}
 
 export default function Cardinal(){
     const [filterCharaType, setFilterCharaType]
-        = useState<CharacterType[]>([notExistCharacterType]);
+        = useState<CharacterType[]>([]);
 
     const [ allowDuplicates, setAllowDuplicates ] = useState<boolean>(false);
 
