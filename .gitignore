@@ -31,6 +31,12 @@ yarn-error.log*
 # vercel
 .vercel
 
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# JetBrains IDE: ignore Copilot data files under .idea
+.idea/copilot.data.*
+.idea/**/copilot.data.*
+
