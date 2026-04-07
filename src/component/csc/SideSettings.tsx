@@ -1,3 +1,5 @@
+"use client";
+
 import {Button, Select, Stack, Switch} from "@chakra-ui/react";
 import {GenshinElement, getElementColor} from "@/component/csc/GenshinElementsLogo";
 import {GenshinWeapon} from "@/component/csc/GenshinWeaponsLogo";
@@ -12,6 +14,9 @@ export default function SideSettings(props: {
     filterCharaType: CharacterType[],
     addFilter: (cType: CharacterType) => void,
     removeFilter: (cType: CharacterType) => void,
+    needCharaType: CharacterType[],
+    addNeedType: (cType: CharacterType) => void,
+    removeNeedType: (cType: CharacterType) => void,
 }) {
 
     const {
@@ -19,11 +24,17 @@ export default function SideSettings(props: {
         allowDuplicates,
         filterCharaType,
         addFilter,
-        removeFilter
+        removeFilter,
+        needCharaType,
+        addNeedType,
+        removeNeedType,
     } = props;
 
     const [selectedElement, setSelectedElement] = useState<GenshinElement>(GenshinElement.Anemo);
     const [selectedWeapon, setSelectedWeapon] = useState<GenshinWeapon>(GenshinWeapon.Swords);
+
+    const [needElement, setNeedElement] = useState<GenshinElement>(GenshinElement.Anemo);
+    const [needWeapon, setNeedWeapon] = useState<GenshinWeapon>(GenshinWeapon.Swords);
 
     const handleAddFilter = () => {
         const newFilter: CharacterType = {
@@ -31,6 +42,14 @@ export default function SideSettings(props: {
             weapon: selectedWeapon
         };
         addFilter(newFilter);
+    }
+
+    const handleAddNeedType = () => {
+        const newNeed: CharacterType = {
+            element: needElement,
+            weapon: needWeapon
+        };
+        addNeedType(newNeed);
     }
 
     return (
@@ -74,6 +93,36 @@ export default function SideSettings(props: {
             <FilterCharacterTypeList
                 filterCharacterTypes={filterCharaType}
                 removeFilter={removeFilter}
+            />
+
+            <p className="border-b border-gray-600 p-1 text-center text-xl">Need Type</p>
+            <Stack direction="row" className="items-center mt-4">
+                <p className="min-w-10">元素:</p>
+                <Select placeholder={undefined} onChange={(e) => setNeedElement(e.target.value as GenshinElement)}>
+                    <option value={GenshinElement.Anemo} className={getElementColor(GenshinElement.Anemo)}>風</option>
+                    <option value={GenshinElement.Geo} className={getElementColor(GenshinElement.Geo)}>岩</option>
+                    <option value={GenshinElement.Electro} className={getElementColor(GenshinElement.Electro)}>雷</option>
+                    <option value={GenshinElement.Dendro} className={getElementColor(GenshinElement.Dendro)}>草</option>
+                    <option value={GenshinElement.Hydro} className={getElementColor(GenshinElement.Hydro)}>水</option>
+                    <option value={GenshinElement.Pyro} className={getElementColor(GenshinElement.Pyro)}>炎</option>
+                    <option value={GenshinElement.Cryo} className={getElementColor(GenshinElement.Cryo)}>氷</option>
+                </Select>
+                <p className="min-w-10">武器:</p>
+                <Select placeholder={undefined} onChange={(e) => setNeedWeapon(e.target.value as GenshinWeapon)}>
+                    <option value={GenshinWeapon.Swords}>片手剣</option>
+                    <option value={GenshinWeapon.Claymores}>両手剣</option>
+                    <option value={GenshinWeapon.Polearms}>槍</option>
+                    <option value={GenshinWeapon.Catalysts}>法器</option>
+                    <option value={GenshinWeapon.Bows}>弓</option>
+                </Select>
+                <Button colorScheme='blue' onClick={handleAddNeedType}>追加</Button>
+            </Stack>
+
+            <p className={needCharaType.length >= 4 ? "text-red-600" : "hidden"}>Need Typeは最大4種類までです。</p>
+
+            <FilterCharacterTypeList
+                filterCharacterTypes={needCharaType}
+                removeFilter={removeNeedType}
             />
 
         </div>

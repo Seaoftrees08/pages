@@ -1,18 +1,22 @@
 "use client"
 
-import {useState} from "react";
+import {useState, useEffect} from "react";
 import CharacterTypeWindow, {CharacterType, getRandomCharacter} from "@/component/csc/CharacterTypeWindow";
-import {GenshinElement} from "@/component/csc/GenshinElementsLogo";
-import {GenshinWeapon} from "@/component/csc/GenshinWeaponsLogo";
 import {Button, ChakraProvider} from '@chakra-ui/react'
 import SideSettings from "@/component/csc/SideSettings";
 import Head from 'next/head';
 
-const notExistCharacterType = {element: GenshinElement.Hydro, weapon: GenshinWeapon.Claymores}
-
 export default function Cardinal(){
+    const [isClient, setIsClient] = useState(false);
+
+    useEffect(() => {
+        setIsClient(true);
+    }, []);
     const [filterCharaType, setFilterCharaType]
-        = useState<CharacterType[]>([notExistCharacterType]);
+        = useState<CharacterType[]>([]);
+
+    const [needCharaType, setNeedCharaType]
+        = useState<CharacterType[]>([]);
 
     const [ allowDuplicates, setAllowDuplicates ] = useState<boolean>(false);
 
@@ -27,7 +31,14 @@ export default function Cardinal(){
     const role = () => {
         const newCharactersType: CharacterType[] = []
 
-        for (let i = 0; i < 4; i++) {
+        // まず needCharaType を結果にコピー（最大4つ）
+        const needSlice = needCharaType.slice(0, 4);
+        for (const need of needSlice) {
+            newCharactersType.push({ ...need });
+        }
+
+        // 残りのスロットをランダムで埋める
+        for (let i = newCharactersType.length; i < 4; i++) {
             if(allowDuplicates){
                 newCharactersType.push(getRandomCharacter(filterCharaType))
             }else{
@@ -60,6 +71,25 @@ export default function Cardinal(){
         );
     }
 
+    const addNeedType = (cType: CharacterType) => {
+        let isExist = false;
+        needCharaType.forEach((nct) => {
+            if(nct.element === cType.element && nct.weapon === cType.weapon){
+                isExist = true;
+            }
+        })
+        if(!isExist && needCharaType.length < 4){
+            const newNeedTypes: CharacterType[] = [...needCharaType, cType];
+            setNeedCharaType(newNeedTypes);
+        }
+    }
+
+    const removeNeedType = (cType: CharacterType) => {
+        setNeedCharaType(
+            needCharaType.filter(c => !(c.element === cType.element && c.weapon === cType.weapon))
+        );
+    }
+
     return (
         <div className="app">
             <Head>
@@ -69,25 +99,32 @@ export default function Cardinal(){
             <main className="flex flex-row-reverse bg-gray-700 h-screen w-screen items-center justify-end">
 
                 <ChakraProvider>
-                    <SideSettings
-                        toggleAllowDuplicates={toggleAllowDuplicates}
-                        allowDuplicates={allowDuplicates}
-                        filterCharaType={filterCharaType}
-                        addFilter={addFilter}
-                        removeFilter={removeFilter}
-                    />
+                    {isClient && (
+                        <>
+                            <SideSettings
+                                toggleAllowDuplicates={toggleAllowDuplicates}
+                                allowDuplicates={allowDuplicates}
+                                filterCharaType={filterCharaType}
+                                addFilter={addFilter}
+                                removeFilter={removeFilter}
+                                needCharaType={needCharaType}
+                                addNeedType={addNeedType}
+                                removeNeedType={removeNeedType}
+                            />
 
-                    <div className="py-8 px-4 w-3/4 min-h-fit ">
-                        <div className="flex gap-10 items-center justify-center">
-                            <CharacterTypeWindow characterType={characters[0]}/>
-                            <CharacterTypeWindow characterType={characters[1]}/>
-                            <CharacterTypeWindow characterType={characters[2]}/>
-                            <CharacterTypeWindow characterType={characters[3]}/>
-                        </div>
-                        <div className="p-1 mt-11 flex justify-center">
-                            <Button colorScheme='blue' size='lg' onClick={role}>Role</Button>
-                        </div>
-                    </div>
+                            <div className="py-8 px-4 w-3/4 min-h-fit ">
+                                <div className="flex gap-10 items-center justify-center">
+                                    <CharacterTypeWindow characterType={characters[0]}/>
+                                    <CharacterTypeWindow characterType={characters[1]}/>
+                                    <CharacterTypeWindow characterType={characters[2]}/>
+                                    <CharacterTypeWindow characterType={characters[3]}/>
+                                </div>
+                                <div className="p-1 mt-11 flex justify-center">
+                                    <Button colorScheme='blue' size='lg' onClick={role}>Role</Button>
+                                </div>
+                            </div>
+                        </>
+                    )}
                 </ChakraProvider>
 
             </main>

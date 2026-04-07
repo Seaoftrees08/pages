@@ -1,3 +1,5 @@
+"use client"
+
 import {CharacterType} from "@/component/csc/CharacterTypeWindow";
 import {Button, Stack} from "@chakra-ui/react";
 import GenshinElementsLogo from "@/component/csc/GenshinElementsLogo";
@@ -14,7 +16,7 @@ export default function FilterCharacterTypeList(props: {
     } = props;
 
     return (
-        <div className="border border-gray-400 w-fill h-2/3 my-4 overflow-auto">
+        <div className="border border-gray-400 w-fill max-h-40 my-4 overflow-auto">
 
             {filterCharacterTypes.map((ct, index) => (
                 <Stack direction="row" key={index} className="py-4 px-4 justify-between items-center">
