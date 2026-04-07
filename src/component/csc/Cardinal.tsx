@@ -15,6 +15,9 @@ export default function Cardinal(){
     const [filterCharaType, setFilterCharaType]
         = useState<CharacterType[]>([]);
 
+    const [needCharaType, setNeedCharaType]
+        = useState<CharacterType[]>([]);
+
     const [ allowDuplicates, setAllowDuplicates ] = useState<boolean>(false);
 
     const [characters, setCharacters]
@@ -28,7 +31,14 @@ export default function Cardinal(){
     const role = () => {
         const newCharactersType: CharacterType[] = []
 
-        for (let i = 0; i < 4; i++) {
+        // まず needCharaType を結果にコピー（最大4つ）
+        const needSlice = needCharaType.slice(0, 4);
+        for (const need of needSlice) {
+            newCharactersType.push({ ...need });
+        }
+
+        // 残りのスロットをランダムで埋める
+        for (let i = newCharactersType.length; i < 4; i++) {
             if(allowDuplicates){
                 newCharactersType.push(getRandomCharacter(filterCharaType))
             }else{
@@ -61,6 +71,25 @@ export default function Cardinal(){
         );
     }
 
+    const addNeedType = (cType: CharacterType) => {
+        let isExist = false;
+        needCharaType.forEach((nct) => {
+            if(nct.element === cType.element && nct.weapon === cType.weapon){
+                isExist = true;
+            }
+        })
+        if(!isExist && needCharaType.length < 4){
+            const newNeedTypes: CharacterType[] = [...needCharaType, cType];
+            setNeedCharaType(newNeedTypes);
+        }
+    }
+
+    const removeNeedType = (cType: CharacterType) => {
+        setNeedCharaType(
+            needCharaType.filter(c => !(c.element === cType.element && c.weapon === cType.weapon))
+        );
+    }
+
     return (
         <div className="app">
             <Head>
@@ -78,6 +107,9 @@ export default function Cardinal(){
                                 filterCharaType={filterCharaType}
                                 addFilter={addFilter}
                                 removeFilter={removeFilter}
+                                needCharaType={needCharaType}
+                                addNeedType={addNeedType}
+                                removeNeedType={removeNeedType}
                             />
 
                             <div className="py-8 px-4 w-3/4 min-h-fit ">
