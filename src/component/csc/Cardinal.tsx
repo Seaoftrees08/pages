@@ -1,12 +1,17 @@
 "use client"
 
-import {useState} from "react";
+import {useState, useEffect} from "react";
 import CharacterTypeWindow, {CharacterType, getRandomCharacter} from "@/component/csc/CharacterTypeWindow";
 import {Button, ChakraProvider} from '@chakra-ui/react'
 import SideSettings from "@/component/csc/SideSettings";
 import Head from 'next/head';
 
 export default function Cardinal(){
+    const [isClient, setIsClient] = useState(false);
+
+    useEffect(() => {
+        setIsClient(true);
+    }, []);
     const [filterCharaType, setFilterCharaType]
         = useState<CharacterType[]>([]);
 
@@ -65,25 +70,29 @@ export default function Cardinal(){
             <main className="flex flex-row-reverse bg-gray-700 h-screen w-screen items-center justify-end">
 
                 <ChakraProvider>
-                    <SideSettings
-                        toggleAllowDuplicates={toggleAllowDuplicates}
-                        allowDuplicates={allowDuplicates}
-                        filterCharaType={filterCharaType}
-                        addFilter={addFilter}
-                        removeFilter={removeFilter}
-                    />
+                    {isClient && (
+                        <>
+                            <SideSettings
+                                toggleAllowDuplicates={toggleAllowDuplicates}
+                                allowDuplicates={allowDuplicates}
+                                filterCharaType={filterCharaType}
+                                addFilter={addFilter}
+                                removeFilter={removeFilter}
+                            />
 
-                    <div className="py-8 px-4 w-3/4 min-h-fit ">
-                        <div className="flex gap-10 items-center justify-center">
-                            <CharacterTypeWindow characterType={characters[0]}/>
-                            <CharacterTypeWindow characterType={characters[1]}/>
-                            <CharacterTypeWindow characterType={characters[2]}/>
-                            <CharacterTypeWindow characterType={characters[3]}/>
-                        </div>
-                        <div className="p-1 mt-11 flex justify-center">
-                            <Button colorScheme='blue' size='lg' onClick={role}>Role</Button>
-                        </div>
-                    </div>
+                            <div className="py-8 px-4 w-3/4 min-h-fit ">
+                                <div className="flex gap-10 items-center justify-center">
+                                    <CharacterTypeWindow characterType={characters[0]}/>
+                                    <CharacterTypeWindow characterType={characters[1]}/>
+                                    <CharacterTypeWindow characterType={characters[2]}/>
+                                    <CharacterTypeWindow characterType={characters[3]}/>
+                                </div>
+                                <div className="p-1 mt-11 flex justify-center">
+                                    <Button colorScheme='blue' size='lg' onClick={role}>Role</Button>
+                                </div>
+                            </div>
+                        </>
+                    )}
                 </ChakraProvider>
 
             </main>
