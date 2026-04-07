@@ -2,13 +2,9 @@
 
 import {useState} from "react";
 import CharacterTypeWindow, {CharacterType, getRandomCharacter} from "@/component/csc/CharacterTypeWindow";
-import {GenshinElement} from "@/component/csc/GenshinElementsLogo";
-import {GenshinWeapon} from "@/component/csc/GenshinWeaponsLogo";
 import {Button, ChakraProvider} from '@chakra-ui/react'
 import SideSettings from "@/component/csc/SideSettings";
 import Head from 'next/head';
-
-//const notExistCharacterType = {element: GenshinElement.Hydro, weapon: GenshinWeapon.Claymores}
 
 export default function Cardinal(){
     const [filterCharaType, setFilterCharaType]

@@ -1,3 +1,4 @@
+"use client";
 
 import {Box, Heading, Link, Stack, Text} from "@chakra-ui/react";
 

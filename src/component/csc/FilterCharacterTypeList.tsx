@@ -1,3 +1,5 @@
+"use client"
+
 import {CharacterType} from "@/component/csc/CharacterTypeWindow";
 import {Button, Stack} from "@chakra-ui/react";
 import GenshinElementsLogo from "@/component/csc/GenshinElementsLogo";

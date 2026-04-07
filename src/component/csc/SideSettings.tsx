@@ -1,3 +1,5 @@
+"use client";
+
 import {Button, Select, Stack, Switch} from "@chakra-ui/react";
 import {GenshinElement, getElementColor} from "@/component/csc/GenshinElementsLogo";
 import {GenshinWeapon} from "@/component/csc/GenshinWeaponsLogo";
